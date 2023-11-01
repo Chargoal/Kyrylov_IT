@@ -33,22 +33,15 @@
             this.stripMenuItem_New = new System.Windows.Forms.ToolStripMenuItem();
             this.stripMenuItem_Open = new System.Windows.Forms.ToolStripMenuItem();
             this.stripMenuItem_Save = new System.Windows.Forms.ToolStripMenuItem();
-            this.stripMenuItem_Exit = new System.Windows.Forms.ToolStripMenuItem();
             this.stripMenuItem_Edit = new System.Windows.Forms.ToolStripMenuItem();
             this.addToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.newTableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.newEntryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.newAttributeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.delTableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.delEntryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.delAttributeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.searchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.stripMenuItem_View = new System.Windows.Forms.ToolStripMenuItem();
             this.stripMenuItem_Help = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabControl = new System.Windows.Forms.TabControl();
+            this.searchButton = new System.Windows.Forms.Button();
+            this.searchCheckBox = new System.Windows.Forms.CheckBox();
             this.MenuStrip.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.SuspendLayout();
@@ -59,7 +52,6 @@
             this.MenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.stripMenuItem_File,
             this.stripMenuItem_Edit,
-            this.stripMenuItem_View,
             this.stripMenuItem_Help});
             this.MenuStrip.Location = new System.Drawing.Point(0, 0);
             this.MenuStrip.Name = "MenuStrip";
@@ -72,139 +64,66 @@
             this.stripMenuItem_File.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.stripMenuItem_New,
             this.stripMenuItem_Open,
-            this.stripMenuItem_Save,
-            this.stripMenuItem_Exit});
+            this.stripMenuItem_Save});
             this.stripMenuItem_File.Name = "stripMenuItem_File";
-            this.stripMenuItem_File.Size = new System.Drawing.Size(46, 24);
-            this.stripMenuItem_File.Text = "File";
+            this.stripMenuItem_File.Size = new System.Drawing.Size(59, 24);
+            this.stripMenuItem_File.Text = "Файл";
             // 
             // stripMenuItem_New
             // 
             this.stripMenuItem_New.Name = "stripMenuItem_New";
-            this.stripMenuItem_New.Size = new System.Drawing.Size(152, 26);
-            this.stripMenuItem_New.Text = "New DB";
+            this.stripMenuItem_New.Size = new System.Drawing.Size(155, 26);
+            this.stripMenuItem_New.Text = "Нова";
             this.stripMenuItem_New.Click += new System.EventHandler(this.stripMenuItem_NewDatabase_Click);
             // 
             // stripMenuItem_Open
             // 
             this.stripMenuItem_Open.Name = "stripMenuItem_Open";
-            this.stripMenuItem_Open.Size = new System.Drawing.Size(152, 26);
-            this.stripMenuItem_Open.Text = "Open DB";
+            this.stripMenuItem_Open.Size = new System.Drawing.Size(155, 26);
+            this.stripMenuItem_Open.Text = "Відкрити";
             this.stripMenuItem_Open.Click += new System.EventHandler(this.stripMenuItem_OpenDatabase_Click);
             // 
             // stripMenuItem_Save
             // 
             this.stripMenuItem_Save.Name = "stripMenuItem_Save";
-            this.stripMenuItem_Save.Size = new System.Drawing.Size(152, 26);
-            this.stripMenuItem_Save.Text = "Save DB";
+            this.stripMenuItem_Save.Size = new System.Drawing.Size(155, 26);
+            this.stripMenuItem_Save.Text = "Зберегти";
             this.stripMenuItem_Save.Click += new System.EventHandler(this.stripMenuItem_Save_Click);
             this.stripMenuItem_Save.Paint += new System.Windows.Forms.PaintEventHandler(this.stripMenuItem_Save_Paint);
-            // 
-            // stripMenuItem_Exit
-            // 
-            this.stripMenuItem_Exit.Name = "stripMenuItem_Exit";
-            this.stripMenuItem_Exit.Size = new System.Drawing.Size(152, 26);
-            this.stripMenuItem_Exit.Text = "Exit";
-            this.stripMenuItem_Exit.Click += new System.EventHandler(this.stripMenuItem_Exit_Click);
             // 
             // stripMenuItem_Edit
             // 
             this.stripMenuItem_Edit.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.addToolStripMenuItem,
-            this.deleteToolStripMenuItem,
-            this.searchToolStripMenuItem});
+            this.deleteToolStripMenuItem});
             this.stripMenuItem_Edit.Name = "stripMenuItem_Edit";
-            this.stripMenuItem_Edit.Size = new System.Drawing.Size(49, 24);
-            this.stripMenuItem_Edit.Text = "Edit";
+            this.stripMenuItem_Edit.Size = new System.Drawing.Size(110, 24);
+            this.stripMenuItem_Edit.Text = "Редагування";
             // 
             // addToolStripMenuItem
             // 
-            this.addToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.newTableToolStripMenuItem,
-            this.newEntryToolStripMenuItem,
-            this.newAttributeToolStripMenuItem});
             this.addToolStripMenuItem.Enabled = false;
             this.addToolStripMenuItem.Name = "addToolStripMenuItem";
-            this.addToolStripMenuItem.Size = new System.Drawing.Size(136, 26);
-            this.addToolStripMenuItem.Text = "Add";
-            this.addToolStripMenuItem.Paint += new System.Windows.Forms.PaintEventHandler(this.addToolStripMenuItem_Paint);
-            // 
-            // newTableToolStripMenuItem
-            // 
-            this.newTableToolStripMenuItem.Name = "newTableToolStripMenuItem";
-            this.newTableToolStripMenuItem.Size = new System.Drawing.Size(151, 26);
-            this.newTableToolStripMenuItem.Text = "Table";
-            this.newTableToolStripMenuItem.Click += new System.EventHandler(this.stripMenuItem_NewTable_Click);
-            this.newTableToolStripMenuItem.Paint += new System.Windows.Forms.PaintEventHandler(this.stripMenuItem_NewTable_Paint);
-            // 
-            // newEntryToolStripMenuItem
-            // 
-            this.newEntryToolStripMenuItem.Name = "newEntryToolStripMenuItem";
-            this.newEntryToolStripMenuItem.Size = new System.Drawing.Size(151, 26);
-            this.newEntryToolStripMenuItem.Text = "Entry";
-            this.newEntryToolStripMenuItem.Click += new System.EventHandler(this.newEntryToolStripMenuItem_Click);
-            this.newEntryToolStripMenuItem.Paint += new System.Windows.Forms.PaintEventHandler(this.newEntryToolStripMenuItem_Paint);
-            // 
-            // newAttributeToolStripMenuItem
-            // 
-            this.newAttributeToolStripMenuItem.Name = "newAttributeToolStripMenuItem";
-            this.newAttributeToolStripMenuItem.Size = new System.Drawing.Size(151, 26);
-            this.newAttributeToolStripMenuItem.Text = "Attribute";
-            this.newAttributeToolStripMenuItem.Paint += new System.Windows.Forms.PaintEventHandler(this.newAttributeToolStripMenuItem_Paint);
+            this.addToolStripMenuItem.Size = new System.Drawing.Size(223, 26);
+            this.addToolStripMenuItem.Text = "Додати таблицю";
+            this.addToolStripMenuItem.Click += new System.EventHandler(this.stripMenuItem_NewTable_Click);
+            this.addToolStripMenuItem.Paint += new System.Windows.Forms.PaintEventHandler(this.stripMenuItem_NewTable_Paint);
             // 
             // deleteToolStripMenuItem
             // 
-            this.deleteToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.delTableToolStripMenuItem,
-            this.delEntryToolStripMenuItem,
-            this.delAttributeToolStripMenuItem});
             this.deleteToolStripMenuItem.Enabled = false;
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(136, 26);
-            this.deleteToolStripMenuItem.Text = "Delete";
-            this.deleteToolStripMenuItem.Paint += new System.Windows.Forms.PaintEventHandler(this.deleteToolStripMenuItem_Paint);
-            // 
-            // delTableToolStripMenuItem
-            // 
-            this.delTableToolStripMenuItem.Name = "delTableToolStripMenuItem";
-            this.delTableToolStripMenuItem.Size = new System.Drawing.Size(151, 26);
-            this.delTableToolStripMenuItem.Text = "Table";
-            this.delTableToolStripMenuItem.Click += new System.EventHandler(this.delTableToolStripMenuItem_Click);
-            this.delTableToolStripMenuItem.Paint += new System.Windows.Forms.PaintEventHandler(this.delTableToolStripMenuItem_Paint);
-            // 
-            // delEntryToolStripMenuItem
-            // 
-            this.delEntryToolStripMenuItem.Name = "delEntryToolStripMenuItem";
-            this.delEntryToolStripMenuItem.Size = new System.Drawing.Size(151, 26);
-            this.delEntryToolStripMenuItem.Text = "Entry";
-            this.delEntryToolStripMenuItem.Paint += new System.Windows.Forms.PaintEventHandler(this.delEntryToolStripMenuItem_Paint);
-            // 
-            // delAttributeToolStripMenuItem
-            // 
-            this.delAttributeToolStripMenuItem.Name = "delAttributeToolStripMenuItem";
-            this.delAttributeToolStripMenuItem.Size = new System.Drawing.Size(151, 26);
-            this.delAttributeToolStripMenuItem.Text = "Attribute";
-            this.delAttributeToolStripMenuItem.Paint += new System.Windows.Forms.PaintEventHandler(this.delAttributeToolStripMenuItem_Paint);
-            // 
-            // searchToolStripMenuItem
-            // 
-            this.searchToolStripMenuItem.Enabled = false;
-            this.searchToolStripMenuItem.Name = "searchToolStripMenuItem";
-            this.searchToolStripMenuItem.Size = new System.Drawing.Size(136, 26);
-            this.searchToolStripMenuItem.Text = "Search";
-            this.searchToolStripMenuItem.Paint += new System.Windows.Forms.PaintEventHandler(this.searchToolStripMenuItem_Paint);
-            // 
-            // stripMenuItem_View
-            // 
-            this.stripMenuItem_View.Name = "stripMenuItem_View";
-            this.stripMenuItem_View.Size = new System.Drawing.Size(55, 24);
-            this.stripMenuItem_View.Text = "View";
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(223, 26);
+            this.deleteToolStripMenuItem.Text = "Видалити таблицю";
+            this.deleteToolStripMenuItem.Click += new System.EventHandler(this.delTableToolStripMenuItem_Click);
+            this.deleteToolStripMenuItem.Paint += new System.Windows.Forms.PaintEventHandler(this.delTableToolStripMenuItem_Paint);
             // 
             // stripMenuItem_Help
             // 
             this.stripMenuItem_Help.Name = "stripMenuItem_Help";
-            this.stripMenuItem_Help.Size = new System.Drawing.Size(55, 24);
-            this.stripMenuItem_Help.Text = "Help";
+            this.stripMenuItem_Help.Size = new System.Drawing.Size(94, 24);
+            this.stripMenuItem_Help.Text = "Допомога";
+            this.stripMenuItem_Help.Click += new System.EventHandler(this.stripMenuItem_Help_Click);
             // 
             // tabPage2
             // 
@@ -237,17 +156,46 @@
             this.tabControl.Size = new System.Drawing.Size(800, 422);
             this.tabControl.TabIndex = 1;
             this.tabControl.Visible = false;
+            this.tabControl.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.tabControl_ControlAddedRemoved);
+            this.tabControl.ControlRemoved += new System.Windows.Forms.ControlEventHandler(this.tabControl_ControlAddedRemoved);
+            // 
+            // searchButton
+            // 
+            this.searchButton.Enabled = false;
+            this.searchButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.searchButton.Location = new System.Drawing.Point(701, 0);
+            this.searchButton.Name = "searchButton";
+            this.searchButton.Size = new System.Drawing.Size(92, 28);
+            this.searchButton.TabIndex = 3;
+            this.searchButton.Text = "Пошук";
+            this.searchButton.UseVisualStyleBackColor = true;
+            this.searchButton.Visible = false;
+            this.searchButton.Click += new System.EventHandler(this.searchButton_Click);
+            // 
+            // searchCheckBox
+            // 
+            this.searchCheckBox.AutoSize = true;
+            this.searchCheckBox.Location = new System.Drawing.Point(572, 6);
+            this.searchCheckBox.Name = "searchCheckBox";
+            this.searchCheckBox.Size = new System.Drawing.Size(123, 20);
+            this.searchCheckBox.TabIndex = 4;
+            this.searchCheckBox.Text = "Режим пошуку";
+            this.searchCheckBox.UseVisualStyleBackColor = true;
+            this.searchCheckBox.Visible = false;
+            this.searchCheckBox.CheckedChanged += new System.EventHandler(this.searchCheckBox_CheckedChanged);
             // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.searchCheckBox);
+            this.Controls.Add(this.searchButton);
             this.Controls.Add(this.tabControl);
             this.Controls.Add(this.MenuStrip);
             this.MainMenuStrip = this.MenuStrip;
             this.Name = "mainForm";
-            this.Text = "mainForm";
+            this.Text = "СКБД";
             this.MenuStrip.ResumeLayout(false);
             this.MenuStrip.PerformLayout();
             this.tabControl.ResumeLayout(false);
@@ -262,23 +210,16 @@
         private System.Windows.Forms.ToolStripMenuItem stripMenuItem_File;
         private System.Windows.Forms.ToolStripMenuItem stripMenuItem_New;
         private System.Windows.Forms.ToolStripMenuItem stripMenuItem_Open;
-        private System.Windows.Forms.ToolStripMenuItem stripMenuItem_Exit;
         private System.Windows.Forms.ToolStripMenuItem stripMenuItem_Edit;
-        private System.Windows.Forms.ToolStripMenuItem stripMenuItem_View;
         private System.Windows.Forms.ToolStripMenuItem stripMenuItem_Help;
         private System.Windows.Forms.ToolStripMenuItem stripMenuItem_Save;
         private System.Windows.Forms.ToolStripMenuItem addToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem newEntryToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem newAttributeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem delEntryToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem delAttributeToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem searchToolStripMenuItem;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabControl tabControl;
-        private System.Windows.Forms.ToolStripMenuItem newTableToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem delTableToolStripMenuItem;
+        private System.Windows.Forms.Button searchButton;
+        private System.Windows.Forms.CheckBox searchCheckBox;
     }
 }
 

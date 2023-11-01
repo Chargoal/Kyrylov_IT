@@ -16,7 +16,7 @@ namespace DBMS
     public partial class CreateTableForm : Form
     {
         private DataManager dataManager = DataManager.Instance;
-        private TypeConverter converter = TypeConverter.Instance;
+        private TypeToNameConverter converter = TypeToNameConverter.Instance;
         private int initAttrAmount = 3;
         private int currentAttrAmount;
         private List<AttributeGroup> attributes = new List<AttributeGroup>();
@@ -58,52 +58,52 @@ namespace DBMS
 
         private void GlobalValidation()
         {
-            try
+            TextBox TableName = (TextBox)Controls.Find("TableNameTextBox", true)[0];
+            bool flag = ValidateName(TableName.Text);
+            if (flag)
             {
-                TextBox TableName = (TextBox)Controls.Find("TableNameTextBox", true)[0];
-                bool flag = ValidateName(TableName.Text);
-                if (flag)
+                TableName.BackColor = Color.White;
+                FlowLayoutPanel flp = (FlowLayoutPanel)Controls.Find("AttributesFlowLayoutPanel", true)[0];
+                foreach (Control c in flp.Controls.Find("AttributeGroup", true))
                 {
-                    TableName.BackColor = Color.White;
-                    FlowLayoutPanel flp = (FlowLayoutPanel)Controls.Find("AttributesFlowLayoutPanel", true)[0];
-                    foreach (Control c in flp.Controls.Find("AttributeGroup", true))
+                    AttributeGroup ag = (AttributeGroup)c;
+                    TextBox tb = (TextBox)ag.Controls.Find("AttributeName", true)[0];
+                    tb.BackColor = Color.White;
+                    if (!ValidateName(tb.Text))
                     {
-                        AttributeGroup ag = (AttributeGroup)c;
-                        TextBox tb = (TextBox)ag.Controls.Find("AttributeName", true)[0];
-                        tb.BackColor = Color.White;
-                        if (!ValidateName(tb.Text))
-                        {
-                            flag = false;
-                            tb.BackColor = Color.Red;
-                        }
-                    }
-                    if (!flag)
-                    {
-                        Exception e = new Exception("Деякі значення назв атрибутів не підпадають під формат назв." +
-                            "Переконайтеся, що назви абетко-цифрові, перший символ не є цифрою, та в назві нема інших символів.");
-                        throw e;
+                        flag = false;
+                        tb.BackColor = Color.Red;
                     }
                 }
-                else
+                if (!flag)
                 {
-                    TableName.BackColor = Color.Red;
-                    Exception e = new Exception("Назва таблиці не не підпадає під формат назв." +
-                            "Переконайтеся, що назва абетко-цифрова, перший символ не є цифрою, та в назві нема інших символів.");
+                    Exception e = new Exception("Деякі значення назв атрибутів не підпадають під формат назв." +
+                        "Переконайтеся, що назви абетко-цифрові, перший символ не є цифрою, та в назві нема інших символів.");
                     throw e;
                 }
             }
-            catch (Exception e)
+            else
             {
-                MessageBox.Show(e.Message,
-                    "Помилка формату назв", MessageBoxButtons.OK);
+                TableName.BackColor = Color.Red;
+                Exception e = new Exception("Назва таблиці не не підпадає під формат назв." +
+                    "Переконайтеся, що назва абетко-цифрова, перший символ не є цифрою, та в назві нема інших символів.");
+                throw e;
             }
         }
 
         private void CreateTableButton_Click(object sender, EventArgs e)
         {
-            GlobalValidation();
-            CreateTable();
-            this.Close();
+            try
+            {   
+                GlobalValidation();
+                CreateTable();
+                this.Close();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Переконайтеся, що назви абетко-цифрові, перший символ не є цифрою, та в назві нема інших символів.",
+                    "Помилка формату назв", MessageBoxButtons.OK);
+            }
         }
 
         private void CreateTable()
@@ -117,8 +117,8 @@ namespace DBMS
                 {
                     AttributeGroup ag = (AttributeGroup)c;
                     TextBox tb = (TextBox)ag.Controls.Find("AttributeName", true)[0];
-                    ListBox typeList = (ListBox)ag.Controls.Find("AttributeType", true)[0];
-                    DataType type = converter.StringToEnum(typeList.Text);
+                    ComboBox typeList = (ComboBox)ag.Controls.Find("AttributeType", true)[0];
+                    DataType type = converter.StringToEnum(typeList.SelectedItem.ToString());
                     Attribute attr = dataManager.CreateAttribute(tb.Text, type);
                     attributes.Add(attr);
                 }
@@ -138,7 +138,7 @@ namespace DBMS
             {
                 Button button = (Button)c.Controls.Find("AttributeRemove", true)[0];
                 TextBox name = (TextBox)c.Controls.Find("AttributeName", true)[0];
-                ListBox type = (ListBox)c.Controls.Find("AttributeType", true)[0];
+                ComboBox type = (ComboBox)c.Controls.Find("AttributeType", true)[0];
 
                 c.Width = flp.Width - 25;
                 type.Height = name.Height;
@@ -180,13 +180,13 @@ namespace DBMS
 
     class AttributeGroup : FlowLayoutPanel
     {
-        private TypeConverter Converter = TypeConverter.Instance;
+        private TypeToNameConverter Converter = TypeToNameConverter.Instance;
 
         public AttributeGroup(FlowLayoutPanel parent, EventHandler eb)
         {
             Button AttributeRemoveButton = new Button();
             TextBox AttributeNameTextBox = new TextBox();
-            ListBox AttributeTypeListBox = new ListBox();
+            ComboBox AttributeTypeComboBox = new ComboBox();
 
             Name = "AttributeGroup";
             Width = parent.Width -25;
@@ -200,21 +200,21 @@ namespace DBMS
 
             AttributeNameTextBox.Name = "AttributeName";
             AttributeNameTextBox.Width = (parent.Width / 3);
-
-            AttributeTypeListBox.Name = "AttributeType";
-            AttributeTypeListBox.Height = AttributeNameTextBox.Height;
-
             Height = AttributeNameTextBox.Height * 2;
 
-            AttributeTypeListBox.BeginUpdate();
+            AttributeTypeComboBox.Name = "AttributeType";
+            AttributeTypeComboBox.Height = AttributeNameTextBox.Height;
+            AttributeTypeComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+            AttributeTypeComboBox.BeginUpdate();
             foreach (string name in Converter.GetTypeNames)
             {
-                AttributeTypeListBox.Items.Add(name);
+                AttributeTypeComboBox.Items.Add(name);
             }
-            AttributeTypeListBox.EndUpdate();
+            AttributeTypeComboBox.EndUpdate();
+            AttributeTypeComboBox.SelectedIndex = 0;
 
             Controls.Add(AttributeNameTextBox);
-            Controls.Add(AttributeTypeListBox);
+            Controls.Add(AttributeTypeComboBox);
             Controls.Add(AttributeRemoveButton);
         }
 
@@ -231,8 +231,8 @@ namespace DBMS
         {
             get 
             {
-                ListBox AttributeTypeListBox = (ListBox)Controls.Find("AttributeType", true)[0];
-                return AttributeTypeListBox.Text; 
+                ComboBox AttributeTypeComboBox = (ComboBox)Controls.Find("AttributeType", true)[0];
+                return AttributeTypeComboBox.Text; 
             }
         }
 

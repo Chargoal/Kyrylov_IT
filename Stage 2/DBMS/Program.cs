@@ -11,6 +11,10 @@ using System.Text;
 using System.Runtime.Remoting.Messaging;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Drawing;
+using System.ComponentModel;
+using System.Text.RegularExpressions;
+using static System.Net.Mime.MediaTypeNames;
+using System.Xml.Linq;
 
 namespace DBMS
 {
@@ -22,9 +26,9 @@ namespace DBMS
         [STAThread]
         static void Main()
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new mainForm());
+            System.Windows.Forms.Application.EnableVisualStyles();
+            System.Windows.Forms.Application.SetCompatibleTextRenderingDefault(false);
+            System.Windows.Forms.Application.Run(new mainForm());
         }
     }
 
@@ -145,15 +149,19 @@ namespace DBMS
             Tables.Remove(table);
         }
 
+        public void UpdateTable(Table table)
+        {
+            Table oldTable = Tables.Find(t => t.Name == table.Name);
+            Tables.Remove(oldTable);
+            Tables.Add(table);
+        }
+
         public Table GetTable(string name)
         {
             return this.Tables.Find(t => t.Name == name);
         }
 
-        public void Search(string pattern)
-        {
-            // Search for entries in all tables that match the pattern.
-        }
+        
     }
 
     public class Table
@@ -209,7 +217,7 @@ namespace DBMS
     public abstract class Attribute
     {
         public string Name { get; set; }
-        public DataType Type { get; }
+        public DataType Type { get; set; }
 
         public Attribute(string name, DataType type)
         {
@@ -224,9 +232,30 @@ namespace DBMS
     {
         public IntegerAttribute(string name) : base(name, DataType.Integer) { }
 
+        public int StringToType(object value)
+        {
+            int propValue = 0;
+            TypeConverter typeConverter = TypeDescriptor.GetConverter(propValue);
+            propValue = (int)typeConverter.ConvertFromString(value.ToString());
+            return propValue;
+        }
+
         public override bool Validate(object value)
         {
-            return value is int;
+            try
+            {
+                if (value is string)
+                {
+                    StringToType(value);
+                    return true;
+                }
+                else if (value is int)
+                {
+                    return true;
+                }     
+            }
+            catch (Exception e) { }
+            return false;
         }
     }
 
@@ -234,9 +263,30 @@ namespace DBMS
     {
         public RealNumberAttribute(string name) : base(name, DataType.RealNumber) { }
 
+        public double StringToType(object value)
+        {
+            double propValue = 0;
+            TypeConverter typeConverter = TypeDescriptor.GetConverter(propValue);
+            propValue = (double)typeConverter.ConvertFromString(value.ToString());
+            return propValue;
+        }
+
         public override bool Validate(object value)
         {
-            return value is double;
+            try
+            {
+                if (value is string)
+                {
+                    StringToType(value);
+                    return true;
+                }
+                else if (value is double)
+                {
+                    return true;
+                }
+            }
+            catch (Exception e) { }
+            return false;
         }
     }
 
@@ -244,9 +294,30 @@ namespace DBMS
     {
         public CharAttribute(string name) : base(name, DataType.Char) { }
 
+        public char StringToType(object value)
+        {
+            char propValue = ' ';
+            TypeConverter typeConverter = TypeDescriptor.GetConverter(propValue);
+            propValue = (char)typeConverter.ConvertFromString(value.ToString());
+            return propValue;
+        }
+
         public override bool Validate(object value)
         {
-            return value is char;
+            try
+            {
+                if (value is string)
+                {
+                    StringToType(value);
+                    return true;
+                }
+                else if (value is char)
+                {
+                    return true;
+                }
+            }
+            catch (Exception e) { }
+            return false;
         }
     }
 
@@ -254,9 +325,28 @@ namespace DBMS
     {
         public StringAttribute(string name) : base(name, DataType.String) { }
 
+
+        public string StringToType(object value)
+        {
+            return value.ToString();
+        }
+
         public override bool Validate(object value)
         {
-            return value is string;
+            try
+            {
+                if (!(value is string))
+                {
+                    string v = StringToType(value);
+                    return true;
+                }
+                else if (value is string)
+                {
+                    return true;
+                }
+            }
+            catch (Exception e) { }
+            return false;
         }
     }
 
@@ -264,21 +354,86 @@ namespace DBMS
     {
         public ColorAttribute(string name) : base(name, DataType.Color) { }
 
+        public Color StringToType(object value)
+        {
+            Color propValue = new Color();
+            TypeConverter typeConverter = TypeDescriptor.GetConverter(propValue);
+            propValue = (Color)typeConverter.ConvertFromString(value.ToString());
+            return propValue;
+        }
+
         public override bool Validate(object value)
         {
-            return value is Color;           
+            try
+            {
+                if (value is string && value != "")
+                {
+                    StringToType(value);
+                    return true;
+                }
+                else if (value is Color)
+                {
+                    return true;
+                }
+            }
+            catch (Exception e) { }
+            return false;
         }
     }
 
     public class ColorIntervalAttribute : Attribute
     {
-        public ColorIntervalAttribute(string name) : base(name, DataType.ColorInvl)
+        public ColorIntervalAttribute(string name) : base(name, DataType.ColorInvl) { }
+
+        public ColorInterval StringToType(object value)
         {
+            ColorAttribute cAttr = new ColorAttribute("c");
+            Color col1 = new Color();
+            Color col2 = new Color();
+
+            string valstr = value.ToString();
+            string col1str = String.Empty;
+            string col2str = String.Empty;
+
+            // Split the string into two parts at the semicolon.
+            string[] parts = valstr.Split(';');
+
+            col1str = parts[0];
+            col2str = parts[1];
+
+            int openBracketIndex = col1str.IndexOf('[');
+            int closeBracketIndex = col2str.IndexOf(']');
+
+            col1str = col1str.Substring(openBracketIndex+1).Trim();
+            col2str = col2str.Substring(0,col2str.Length-1).Trim();
+
+            if (!cAttr.Validate(col1str) || !cAttr.Validate(col2str))
+            {
+                throw new Exception("Empty string for color name");
+            }
+
+            col1 = cAttr.StringToType(col1str);
+            col2 = cAttr.StringToType(col2str);
+
+            return new ColorInterval(col1, col2);
         }
 
         public override bool Validate(object value)
         {
-            return value is ColorInterval;
+            try
+            {
+                if (value is string)
+                {
+                    StringToType(value);
+                    return true;
+                }
+                else if (value is ColorInterval)
+                {
+                    return true;
+                }
+            }
+            catch (Exception e) { }
+            return false;
         }
     }
     //========================================================================
@@ -298,7 +453,7 @@ namespace DBMS
 
         public object GetValue(string attributeName)
         {
-            return Values.Find(v => v.Argument.Name == attributeName);
+            return Values.Find(v => v.Argument.Name == attributeName).Value;
         }
     }
 
@@ -324,48 +479,98 @@ namespace DBMS
                 return instance;
             }
         }
-        
-        public void WriteDatabase(FileStream fileStream)
+
+        public static void Serialize(Database database, Stream stream)
         {
-            // Get the current database.
-            Database database = CurrentDatabase;
-
-            // Serialize the database to JSON.
-            string json = JsonSerializer.Serialize(database);
-
-            // Write the JSON to the file stream.
-            byte[] bytes = Encoding.UTF8.GetBytes(json);
-            fileStream.Write(bytes, 0, bytes.Length);
+            var writer = new Utf8JsonWriter(stream);
+            writer.WriteStartObject();
+            writer.WritePropertyName("Tables");
+            writer.WriteStartArray();
+            foreach (var table in database.Tables)
+            {
+                writer.WriteStartObject();
+                writer.WritePropertyName("Name");
+                writer.WriteStringValue(table.Name);
+                writer.WritePropertyName("Attributes");
+                writer.WriteStartArray();
+                foreach (var attribute in table.Attributes)
+                {
+                    writer.WriteStartObject();
+                    writer.WritePropertyName("Name");
+                    writer.WriteStringValue(attribute.Name);
+                    writer.WritePropertyName("Type");
+                    writer.WriteStringValue(attribute.Type.ToString());
+                    writer.WriteEndObject();
+                }
+                writer.WriteEndArray();
+                writer.WritePropertyName("Entries");
+                writer.WriteStartArray();
+                foreach (var entry in table.Entries)
+                {
+                    writer.WriteStartObject();
+                    foreach (var attribute in table.Attributes)
+                    {
+                        writer.WritePropertyName(attribute.Name);
+                        var value = entry.GetValue(attribute.Name);
+                        if (value != null)
+                            writer.WriteStringValue(value.ToString());
+                        else
+                            writer.WriteStringValue("");
+                    }
+                    writer.WriteEndObject();
+                }
+                writer.WriteEndArray();
+                writer.WriteEndObject();
+            }
+            writer.WriteEndArray();
+            writer.WriteEndObject();
+            writer.Flush();
         }
-        /*
-        // Rotten!
-        
-        public void ReadDatabase(Stream stream)
+
+        public static Database Deserialize(ReadOnlyMemory<byte> json)
         {
-            // Create a new BinaryFormatter object.
-            BinaryFormatter formatter = new BinaryFormatter();
+            var converter = TypeToNameConverter.Instance;
+            var document = JsonDocument.Parse(json);
+            var database = new Database("");
 
-            // Deserialize the database object from the JSON file.
-            Database database = (Database)formatter.Deserialize(stream);
+            var tables = document.RootElement.GetProperty("Tables");
+            foreach (var tableElement in tables.EnumerateArray())
+            {
+                string tableName = tableElement.GetProperty("Name").GetString();
+                var table = new Table(tableName);
 
-            // Close the stream.
-            stream.Close();
+                var attributes = tableElement.GetProperty("Attributes");
+                foreach (var attributeElement in attributes.EnumerateArray())
+                {
+                    string attrName = attributeElement.GetProperty("Name").GetString();
+
+                    DataType attrType = converter.StringToEnum(attributeElement.GetProperty("Type").GetString());
+
+                    var attribute = Instance.CreateAttribute(attrName, attrType);
+
+                    table.Attributes.Add(attribute);
+                }
+
+                var entries = tableElement.GetProperty("Entries");
+                foreach (var entryElement in entries.EnumerateArray())
+                {
+                    var entry = new Entry();
+
+                    foreach (var attributeElement in attributes.EnumerateArray())
+                    {
+                        string attrName = attributeElement.GetProperty("Name").GetString();
+                        Attribute attr = table.GetAttribute(attrName);
+                        EntryValue ev = new EntryValue(entryElement.GetProperty(attributeElement.GetProperty("Name").GetString()).GetString(), attr);
+                        entry.AddValue(ev);
+                    }
+                    table.Entries.Add(entry);
+                }
+                database.Tables.Add(table);
+            }
+            return database;
         }
-        */
-        // Rotten!
-        
-        public void ReadDatabase(Stream stream)
-        {
-            // Read the JSON from the stream.
-            string json = new StreamReader(stream).ReadToEnd();
-            
-            // Deserialize the JSON to a database object.
-            Database database = JsonSerializer.Deserialize<Database>(json);
 
-            // Set the current database to the deserialized database object.
-            CurrentDatabase = database;
-        }
-        
+        //=====================================================
 
         public void SaveDatabase()
         {
@@ -389,7 +594,8 @@ namespace DBMS
                     if (saveFileDialog.FileName != "")
                     {
                         FileStream fs = (FileStream)saveFileDialog.OpenFile();
-                        WriteDatabase(fs);
+                        //WriteDatabase(fs);
+                        Serialize(CurrentDatabase, fs);
                         fs.Close();
                     }
 
@@ -398,7 +604,7 @@ namespace DBMS
                 }
             }
         }
-
+        
         public void CreateDatabase(string name)
         {
             SaveDatabase();
@@ -415,7 +621,8 @@ namespace DBMS
             var fileContent = string.Empty;
             var filePath = string.Empty;
 
-            SaveDatabase();
+            if (CurrentDatabase != null)
+                SaveDatabase();
 
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
@@ -432,13 +639,23 @@ namespace DBMS
                     //Read the contents of the file into a stream
                     Stream fs = openFileDialog.OpenFile();
 
-                    ReadDatabase(fs);
+                    var file = ReadFully(fs);
+                    CurrentDatabase = Deserialize(file);
                     fs.Close();
                 }
                 else
                 {
 
                 }
+            }
+        }
+
+        public static byte[] ReadFully(Stream input)
+        {
+            using (MemoryStream ms = new MemoryStream())
+            {
+                input.CopyTo(ms);
+                return ms.ToArray();
             }
         }
 
@@ -488,6 +705,48 @@ namespace DBMS
             }
         }
 
+        public Attribute SpecifyAttribute(Attribute attr)
+        {
+            switch (attr.Type)
+            {
+                case DataType.Integer:
+                    return (IntegerAttribute)attr;
+                case DataType.RealNumber:
+                    return (RealNumberAttribute)attr;
+                case DataType.Char:
+                    return (CharAttribute)attr;
+                case DataType.String:
+                    return (StringAttribute)attr;
+                case DataType.Color:
+                    return (ColorAttribute)attr;
+                case DataType.ColorInvl:
+                    return (ColorIntervalAttribute)attr;
+                default:
+                    return attr;
+            }
+        }
+        /*
+        public string TypeIndexToNameConverter(DataType type)
+        {
+            switch (type)
+            {
+                case DataType.Integer:
+                    return "Integer";
+                case DataType.RealNumber:
+                    return "RealNumber";
+                case DataType.Char:
+                    return "Char"; 
+                case DataType.String:
+                    return "String";
+                case DataType.Color:
+                    return "Color";
+                case DataType.ColorInvl:
+                    return "ColorInvl";
+                default:
+                    throw new Exception($"Unknown data type: {type}");
+            }
+        }
+        */
         public void DeleteTable(string tableName)
         {
             Table t = CurrentDatabase.Tables.Find(table => table.Name == tableName);
@@ -495,13 +754,13 @@ namespace DBMS
         }
     }
 
-    class TypeConverter
+    class TypeToNameConverter
     {
-        private static TypeConverter instance;
+        private static TypeToNameConverter instance;
         private Dictionary<DataType, string> dict = new Dictionary<DataType, string>();
         private List<string> TypeNames;
 
-        public TypeConverter() 
+        public TypeToNameConverter() 
         {
             foreach (DataType type in (DataType[])Enum.GetValues(typeof(DataType)))
             {
@@ -512,13 +771,13 @@ namespace DBMS
             TypeNames = new List<string>(Enum.GetNames(typeof(DataType)));
         }
 
-        public static TypeConverter Instance
+        public static TypeToNameConverter Instance
         {
             get
             {
                 if (instance == null)
                 {
-                    instance = new TypeConverter();
+                    instance = new TypeToNameConverter();
                 }
 
                 return instance;
@@ -533,8 +792,12 @@ namespace DBMS
 
         public DataType StringToEnum(string str)
         {
-            Enum.TryParse(str, out DataType type);
-            return type;
+            if (dict.ContainsValue(str))
+            {
+                DataType type = dict.FirstOrDefault(x => x.Value == str).Key;
+                return type;
+            }
+            return DataType.Integer;
         }
 
         public List<string> GetTypeNames

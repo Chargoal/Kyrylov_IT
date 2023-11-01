@@ -6351,19 +6351,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\volko\\.nuget\\packages\\": {}
+    "C:\\Users\\Char\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\volko\\Documents\\Uni\\DBMS\\UnitTest\\UnitTest.csproj",
+      "projectUniqueName": "D:\\Study\\4C1S\\IT\\Stage2\\DBMS\\UnitTest\\UnitTest.csproj",
       "projectName": "UnitTest",
-      "projectPath": "C:\\Users\\volko\\Documents\\Uni\\DBMS\\UnitTest\\UnitTest.csproj",
-      "packagesPath": "C:\\Users\\volko\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\volko\\Documents\\Uni\\DBMS\\UnitTest\\obj\\",
+      "projectPath": "D:\\Study\\4C1S\\IT\\Stage2\\DBMS\\UnitTest\\UnitTest.csproj",
+      "packagesPath": "C:\\Users\\Char\\.nuget\\packages\\",
+      "outputPath": "D:\\Study\\4C1S\\IT\\Stage2\\DBMS\\UnitTest\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\volko\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Char\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -6377,8 +6377,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Users\\volko\\Documents\\Uni\\DBMS\\DBMS\\DBMS.csproj": {
-              "projectPath": "C:\\Users\\volko\\Documents\\Uni\\DBMS\\DBMS\\DBMS.csproj"
+            "D:\\Study\\4C1S\\IT\\Stage2\\DBMS\\DBMS\\DBMS.csproj": {
+              "projectPath": "D:\\Study\\4C1S\\IT\\Stage2\\DBMS\\DBMS\\DBMS.csproj"
             }
           }
         }
@@ -6426,7 +6426,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.402\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.402\\RuntimeIdentifierGraph.json"
       }
     }
   }

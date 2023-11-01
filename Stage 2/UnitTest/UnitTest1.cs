@@ -1,7 +1,9 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Drawing;
 using DBMS;
 using System.Collections.Generic;
+using Newtonsoft.Json.Linq;
 
 namespace UnitTest
 {
@@ -11,107 +13,58 @@ namespace UnitTest
         [TestMethod]
         public void ValidateIntegerValue()
         {
-            // Create an integer attribute.
-            DBMS.Attribute attribute = new IntegerAttribute("age");
-
-            // Create a value of type integer.
-            int value = 123;
-
-            // Validate the value.
-            Assert.IsTrue(attribute.Validate(value));
+            DBMS.Attribute attribute = new IntegerAttribute("Int");
+            Assert.IsTrue(attribute.Validate("14"));
         }
 
         [TestMethod]
         public void ValidateRealNumberValue()
         {
-            // Create a real number attribute.
-            DBMS.Attribute attribute = new RealNumberAttribute("height");
-
-            // Create a value of type double.
-            double value = 5.5;
-
-            // Validate the value.
-            Assert.IsTrue(attribute.Validate(value));
+            DBMS.Attribute attribute = new RealNumberAttribute("Real");
+            Assert.IsTrue(attribute.Validate("3,123"));
         }
 
         [TestMethod]
         public void ValidateCharValue()
         {
-            // Create a char attribute.
-            DBMS.Attribute attribute = new CharAttribute("gender");
-
-            // Create a value of type char.
-            char value = 'M';
-
-            // Validate the value.
-            Assert.IsTrue(attribute.Validate(value));
+            DBMS.Attribute attribute = new CharAttribute("Char");
+            Assert.IsTrue(attribute.Validate("s"));
         }
 
         [TestMethod]
         public void ValidateStringValue()
         {
-            // Create a string attribute.
-            DBMS.Attribute attribute = new StringAttribute("name");
-
-            // Create a value of type string.
-            string value = "John Doe";
-
-            // Validate the value.
-            Assert.IsTrue(attribute.Validate(value));
+            DBMS.Attribute attribute = new StringAttribute("str");
+            Assert.IsTrue(attribute.Validate("a quick brown fox"));
         }
 
         [TestMethod]
-        public void ValidateTextFileValue()
+        public void ValidateColorValue()
         {
-            // Create a text file attribute.
-            DBMS.Attribute attribute = new TextFileAttribute("file");
-
-            // Create a value of type string.
-            string value = "C:\\Users\\volko\\Documents\\Uni\\DBMS\\file.txt";
-
-            // Validate the value.
-            Assert.IsTrue(attribute.Validate(value));
+            DBMS.Attribute attribute = new ColorAttribute("Color");
+            Assert.IsTrue(attribute.Validate("SlateBlue"));
         }
 
         [TestMethod]
-        public void ValidateStringIntervalValue()
+        public void ValidateColorIntervalValue()
         {
-            // Create a string interval attribute.
-            DBMS.Attribute attribute = new StringIntervalAttribute("interval");
-
-            // Create a value of type string.
-            StringInterval value = new StringInterval("asd", "nnn");
-
-            // Validate the value.
-            Assert.IsTrue(attribute.Validate(value));
+            DBMS.Attribute attribute = new ColorIntervalAttribute("interval");
+            Assert.IsTrue(attribute.Validate("[Red; Teal]"));
         }
-        /*
+
         [TestMethod]
-        public void TestMethod6()
+        public void ValidateLoadAndSearch()
         {
-            DBMenu menu = new DBMenu();
-            menu.CurrentBase = new Base();
-            List<Tuple<string, string>> NamesTypes = new List<Tuple<string, string>>();
-            NamesTypes.Add(new Tuple<string, string>("1", "String"));
-            NamesTypes.Add(new Tuple<string, string>("2", "String"));
-            menu.CreateTable("Table1", NamesTypes);
-            NamesTypes = new List<Tuple<string, string>>();
-            NamesTypes.Add(new Tuple<string, string>("2", "String"));
-            NamesTypes.Add(new Tuple<string, string>("1", "String"));
-            menu.CreateTable("Table2", NamesTypes);
-            menu.OpenTable("Table1");
-            menu.AddRow(); menu.AddRow();
-            menu.ChangeRowValue(0, 0, "1"); menu.ChangeRowValue(0, 1, "2");
-            menu.ChangeRowValue(1, 0, "1"); menu.ChangeRowValue(1, 1, "1");
-            menu.OpenTable("Table2");
-            menu.AddRow(); menu.AddRow();
-            menu.ChangeRowValue(0, 0, "2"); menu.ChangeRowValue(0, 1, "1");
-            menu.ChangeRowValue(1, 0, "2"); menu.ChangeRowValue(1, 1, "2");
-            List<string> s = new List<string>(); s.Add("Table1"); s.Add("Table2");
-            menu.Union("Table3", s);
-            menu.OpenTable("Table3");
-            Assert.AreEqual(menu.CurrentTable.Fields[0].Values.Count, 3);
+            /*
+            DataManager dataManager = DataManager.Instance;
+            dataManager.OpenDatabase();
+
+            // Act
+            SearchTable(tabPage, table);
+            Assert.AreEqual(1, dataGridView.Rows.VisibleCount);
+            */
+            //gridControl.BindingContext = new System.Windows.Forms.BindingContext();
+            //Assert.AreEqual(1, dataGridView.Rows.VisibleCount);
         }
-        */
     }
 }

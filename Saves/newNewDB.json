@@ -1,0 +1,1 @@
+{"Tables":[{"Name":"t1","Attributes":[{"Name":"k","Type":"Integer"}],"Entries":[]},{"Name":"t2","Attributes":[{"Name":"i","Type":"Integer"},{"Name":"r","Type":"RealNumber"},{"Name":"ch","Type":"Char"},{"Name":"str","Type":"String"},{"Name":"col","Type":"Color"},{"Name":"colInt","Type":"ColorInvl"}],"Entries":[]}]}
