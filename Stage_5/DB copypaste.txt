@@ -1,0 +1,132 @@
+{
+  "tables": [
+    {
+      "name": "HairColor",
+      "attributes": [
+        {
+          "name": "personId",
+          "type": "Integer"
+        },
+        {
+          "name": "hairColor",
+          "type": "Color"
+        }
+      ],
+      "entries": [
+        {
+          "values": [
+            {
+              "value": "0",
+              "attribute": {
+                "name": "personId",
+                "type": "Integer"
+              }
+            },
+            {
+              "value": "(255, 255, 255)",
+              "attribute": {
+                "name": "hairColor",
+                "type": "Color"
+              }
+            }
+          ]
+        },
+        {
+          "values": [
+            {
+              "value": "1",
+              "attribute": {
+                "name": "personId",
+                "type": "Integer"
+              }
+            },
+            {
+              "value": "(0, 0, 255)",
+              "attribute": {
+                "name": "hairColor",
+                "type": "Color"
+              }
+            }
+          ]
+        },
+      ]
+    }
+  ]
+}
+
+===============================================================================
+# Add new Table
+
+{
+  "name": "Test",
+  "attributes": [
+	{
+	  "name": "personName",
+	  "type": "String"
+	}
+  ],
+  "entries": [
+	{
+	  "values": [
+		{
+		  "value": "Josh",
+		  "attribute": {
+			"name": "personName",
+			"type": "String"
+		  }
+		}
+	  ]
+	},
+	{
+	  "values": [
+		{
+		  "value": "Mary",
+		  "attribute": {
+			"name": "personName",
+			"type": "String"
+		  }
+		}
+	  ]
+	}
+  ]
+}
+
+===============================================================================
+# Search
+
+
+{
+	"values": [
+		{
+		  "value": "0",
+		  "attribute": {
+			"name": "personId",
+			"type": "Integer"
+		  }
+		}
+	]
+}
+
+===============================================================================
+# Add entry
+
+{
+  "values": [
+	{
+	  "value": "07",
+	  "attribute": {
+		"name": "personId",
+		"type": "Integer"
+	  }
+	},
+	{
+	  "value": "(10, 0, 10)",
+	  "attribute": {
+		"name": "hairColor",
+		"type": "Color"
+	  }
+	}
+  ]
+}
+		
+#Search again then

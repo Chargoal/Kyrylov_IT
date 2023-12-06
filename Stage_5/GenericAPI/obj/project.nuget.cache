@@ -1,0 +1,18 @@
+{
+  "version": 2,
+  "dgSpecHash": "vJCvNcPKEHysJJKUaXhogGi+KDghyYdYHisM9uh0aViP0/BZbXwmKWMBFTWbGNTQ3Nd0mvNlyM/+mZGB0fSOYA==",
+  "success": true,
+  "projectFilePath": "D:\\Study\\4C1S\\IT\\Kyrylov_IT\\Stage_5\\GenericAPI\\ServerSide.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Char\\.nuget\\packages\\microsoft.aspnetcore.openapi\\8.0.0\\microsoft.aspnetcore.openapi.8.0.0.nupkg.sha512",
+    "C:\\Users\\Char\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
+    "C:\\Users\\Char\\.nuget\\packages\\microsoft.openapi\\1.6.11\\microsoft.openapi.1.6.11.nupkg.sha512",
+    "C:\\Users\\Char\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
+    "C:\\Users\\Char\\.nuget\\packages\\swashbuckle.aspnetcore\\6.5.0\\swashbuckle.aspnetcore.6.5.0.nupkg.sha512",
+    "C:\\Users\\Char\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.5.0\\swashbuckle.aspnetcore.swagger.6.5.0.nupkg.sha512",
+    "C:\\Users\\Char\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.5.0\\swashbuckle.aspnetcore.swaggergen.6.5.0.nupkg.sha512",
+    "C:\\Users\\Char\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\6.5.0\\swashbuckle.aspnetcore.swaggerui.6.5.0.nupkg.sha512",
+    "C:\\Users\\Char\\.nuget\\packages\\system.componentmodel.annotations\\5.0.0\\system.componentmodel.annotations.5.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

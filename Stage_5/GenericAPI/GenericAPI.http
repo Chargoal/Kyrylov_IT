@@ -1,0 +1,135 @@
+@GenericAPI_HostAddress = http://localhost:44308
+
+GET {{GenericAPI_HostAddress}}/database/
+Accept: application/json
+
+{
+
+}   
+
+###
+POST {{GenericAPI_HostAddress}}/database/
+Accept: application/json
+
+[
+    {
+        "name": "Int",
+        "type": "Integer"
+    }, 
+    {
+        "name": "Real", 
+        "type": "RealNumber"
+    },
+    {
+        "name": "Ch",
+        "type": "Char"
+    }, 
+    {
+        "name": "Str", 
+        "type": "String"
+    },
+    {
+        "name": "Col",
+        "type": "Color"
+    }, 
+    {
+        "name": "ColI", 
+        "type": "ColorInvl"
+    }
+]
+
+###
+DELETE {{GenericAPI_HostAddress}}/database/
+Accept: application/json
+
+
+###
+
+GET {{GenericAPI_HostAddress}}/database
+Accept: application/json
+
+{
+    "Tables": []
+}   
+
+###
+POST {{GenericAPI_HostAddress}}/
+Accept: application/json
+
+[
+    {
+        "name": "Int",
+        "type": "Integer"
+    }, 
+    {
+        "name": "Real", 
+        "type": "RealNumber"
+    },
+    {
+        "name": "Ch",
+        "type": "Char"
+    }, 
+    {
+        "name": "Str", 
+        "type": "String"
+    },
+    {
+        "name": "Col",
+        "type": "Color"
+    }, 
+    {
+        "name": "ColI", 
+        "type": "ColorInvl"
+    }
+]
+
+###
+DELETE {{GenericAPI_HostAddress}}/database/
+Accept: application/json
+
+
+###
+GET {{GenericAPI_HostAddress}}/database/
+Accept: application/json
+
+{
+
+}   
+
+###
+POST {{GenericAPI_HostAddress}}/database/
+Accept: application/json
+
+[
+    {
+        "name": "Int",
+        "type": "Integer"
+    }, 
+    {
+        "name": "Real", 
+        "type": "RealNumber"
+    },
+    {
+        "name": "Ch",
+        "type": "Char"
+    }, 
+    {
+        "name": "Str", 
+        "type": "String"
+    },
+    {
+        "name": "Col",
+        "type": "Color"
+    }, 
+    {
+        "name": "ColI", 
+        "type": "ColorInvl"
+    }
+]
+
+###
+DELETE {{GenericAPI_HostAddress}}/database/
+Accept: application/json
+
+
+###
