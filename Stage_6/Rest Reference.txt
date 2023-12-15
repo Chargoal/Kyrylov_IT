@@ -2,7 +2,7 @@
   "tables": [
     {
       "name": "HairColor",
-      "attributes": [
+      "columns": [
         {
           "name": "personId",
           "type": "Integer"
@@ -12,19 +12,19 @@
           "type": "Color"
         }
       ],
-      "entries": [
+      "rows": [
         {
-          "values": [
+          "cells": [
             {
-              "value": "0",
-              "attribute": {
-                "name": "personId",
-                "type": "Integer"
+              "cell": "Alex",
+              "column": {
+                "name": "personName",
+                "type": "String"
               }
             },
             {
-              "value": "(255, 255, 255)",
-              "attribute": {
+              "cell": "(255, 255, 255)",
+              "column": {
                 "name": "hairColor",
                 "type": "Color"
               }
@@ -32,17 +32,17 @@
           ]
         },
         {
-          "values": [
+          "cells": [
             {
-              "value": "1",
-              "attribute": {
-                "name": "personId",
-                "type": "Integer"
+              "cell": "Mary",
+              "column": {
+                "name": "personName",
+                "type": "String"
               }
             },
             {
-              "value": "(0, 0, 255)",
-              "attribute": {
+              "cell": "(0, 0, 255)",
+              "column": {
                 "name": "hairColor",
                 "type": "Color"
               }
@@ -59,7 +59,7 @@
 
 {
   "name": "Test",
-  "attributes": [
+  "columns": [
 	{
 	  "name": "personName",
 	  "type": "String"
@@ -67,10 +67,10 @@
   ],
   "entries": [
 	{
-	  "values": [
+	  "cells": [
 		{
-		  "value": "Josh",
-		  "attribute": {
+		  "cell": "Josh",
+		  "column": {
 			"name": "personName",
 			"type": "String"
 		  }
@@ -78,10 +78,10 @@
 	  ]
 	},
 	{
-	  "values": [
+	  "cells": [
 		{
-		  "value": "Mary",
-		  "attribute": {
+		  "cell": "Mary",
+		  "column": {
 			"name": "personName",
 			"type": "String"
 		  }
@@ -96,10 +96,10 @@
 
 
 {
-	"values": [
+	"cells": [
 		{
-		  "value": "0",
-		  "attribute": {
+		  "cell": "0",
+		  "column": {
 			"name": "personId",
 			"type": "Integer"
 		  }
@@ -111,17 +111,17 @@
 # Add entry
 
 {
-  "values": [
+  "cells": [
 	{
-	  "value": "07",
-	  "attribute": {
+	  "cell": "07",
+	  "column": {
 		"name": "personId",
 		"type": "Integer"
 	  }
 	},
 	{
-	  "value": "(10, 0, 10)",
-	  "attribute": {
+	  "cell": "(10, 0, 10)",
+	  "column": {
 		"name": "hairColor",
 		"type": "Color"
 	  }
